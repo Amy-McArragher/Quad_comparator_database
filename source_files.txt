@@ -1,0 +1,7 @@
+Digitalside.txt,digitalside
+Rescure_domain.txt,rescure
+Covid.txt,rescure_covid
+Phishtank.txt,phishtank
+Feed.txt,openphish
+pir.txt,pir
+BT_Domains.txt,BT
