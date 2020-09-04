@@ -1,0 +1,70 @@
+Total number of domains added today
+SELECT COUNT(DISTINCT domains.domain) FROM Domains LEFT JOIN results ON domains.domain = results.domain WHERE results.created_at = CURRENT_DATE;
+Domains blocked by quad 9 1
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY quad_9 HAVING quad_9 = '0';
+Domains blocked by quad9_noblock 2
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY quad9_noblock HAVING quad9_noblock = '0';
+Domains blocked by google 3
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY google HAVING google = '0';
+Domains blocked by cloudflare_safe 4
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY cloudflare_safe HAVING cloudflare_safe = '0';
+Domains blocked by cloudflare 5
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY cloudflare HAVING cloudflare = '0';
+Domains blocked by opendns 6
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY opendns HAVING opendns = '0';
+Domains blocked by ultrarecursive 7
+SELECT COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY ultrarecursive HAVING ultrarecursive = '0';
+Number of domains per top level domain 8
+SELECT SUBSTRING(domain FROM '(.[A-Za-z0-9]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z0-9]+)$')
+Number of blocked domains by quad 9 per top level domain 9
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),quad_9 = '0' HAVING results.quad_9 = '0';
+Number of blocked domains by quad9_noblock per top level domain 10
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),quad9_noblock = '0' HAVING results.quad9_noblock = '0';
+Number of blocked domains by google per top level domain 11
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),google = '0' HAVING results.google = '0';
+Number of blocked domains by cloudflare_safe per top level domain 12
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),cloudflare_safe = '0' HAVING results.cloudflare_safe = '0';
+Number of blocked domains by cloudflare per top level domain 13
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),cloudflare = '0' HAVING results.cloudflare = '0';
+Number of blocked domains by opendns per top level domain 14
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),opendns = '0' HAVING results.opendns = '0';
+Number of blocked domains by ultrarecursive per top level domain  15
+SELECT SUBSTRING(domain FROM '(.[A-Za-z]+)$'),COUNT(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE GROUP BY SUBSTRING(domain FROM '(.[A-Za-z]+)$'),ultrarecursive = '0' HAVING results.ultrarecursive = '0';
+Number of domains per source 16
+SELECT DISTINCT source,COUNT(DISTINCT sources.domain) FROM Sources LEFT JOIN results on Sources.domain = results.domain WHERE results.created_at = CURRENT_DATE GROUP BY source;
+Domains blocked by quad 9 per source 17
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE  GROUP BY quad_9,sources.source HAVING quad_9 = '0';
+Domains blocked by quad9_noblock per source 18
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY quad9_noblock,sources.source HAVING quad9_noblock = '0';
+Domains blocked by google per source 19
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY google,sources.source HAVING google = '0';
+Domains blocked by cloudflare_safe per source 20
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY cloudflare_safe,sources.source HAVING cloudflare_safe = '0';
+Domains blocked by cloudflare per source 21
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY cloudflare,sources.source HAVING cloudflare = '0';
+Domains blocked by opendns per source 22
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY opendns,sources.source HAVING opendns = '0';
+Domains blocked by ultrarecursive per source 23
+SELECT sources.source ,COUNT(DISTINCT results.domain) FROM results LEFT JOIN sources on results.domain = sources.domain WHERE results.created_at = CURRENT_DATE GROUP BY ultrarecursive,sources.source HAVING ultrarecursive = '0';
+average response time of quad_9 24
+SELECT AVG(quad_9) FROM Resolve_time WHERE quad_9 != '0';
+average response time of quad9_noblock 25
+SELECT AVG(quad_9_noblock) FROM Resolve_time WHERE quad_9_noblock != '0';
+average response time of google 26
+SELECT AVG(google) FROM Resolve_time WHERE google != '0';
+average response time of cloudflare_safe 27
+SELECT AVG(cloudflare_safe) FROM Resolve_time WHERE cloudflare_safe != '0';
+average response time of cloudflare 28
+SELECT AVG(cloudflare) FROM Resolve_time WHERE cloudflare != '0';
+average response time of opendns 29
+SELECT AVG(opendns) FROM Resolve_time WHERE opendns != '0';
+average response time of ultrarecursive 30
+SELECT AVG(ultrarecursive) FROM Resolve_time WHERE ultrarecursive != '0';
+Number of domains which aren't resolved by any 31
+SELECT count(DISTINCT domain) FROM results WHERE results.created_at = CURRENT_DATE AND results.quad_9 = '0' AND results.google = '0' AND results.cloudflare = '0' AND results.cloudflare_safe = '0' AND results.opendns = '0' AND results.quad9_noblock = '0' AND results.ultrarecursive = '0';
+total number of domains overall
+SELECT COUNT(domain) FROM domains;
+Total number of existing domains added today;
+SELECT COUNT(DISTINCT domains.domain) FROM Domains LEFT JOIN results ON domains.domain = results.domain WHERE results.created_at = CURRENT_DATE AND Domains.registrar != 'Does not exist';
+domains which dont exist count
+SELECT COUNT(DISTINCT domain) FROM Domains WHERE registrar = 'Does not exist';
